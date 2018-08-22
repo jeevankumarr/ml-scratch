@@ -162,10 +162,10 @@ def cross_validation_split(dataset, n_folds):
     return dataset_split
 
 
-def evaluate_algorithm(dataset, algorithm, n_folds, learn_rate, iter):
+def evaluate_algorithm(dataset, algorithm, n_folds, learn_rate, iter, accuracy_metric):
     folds = cross_validation_split(dataset, n_folds)
     scores = []
-    mape_scores = []
+
     for i, fold in enumerate(folds):
         train = [f for j, f in enumerate(folds) if j != i]
         train = sum(train, [])
@@ -176,11 +176,13 @@ def evaluate_algorithm(dataset, algorithm, n_folds, learn_rate, iter):
             row_copy[-1] = None
         pred = algorithm(train, test, learn_rate, iter)
         actual = [row[-1] for row in fold]
-        err = rmse(pred, actual)
-        m_err = mape(pred, actual)
+
+        err = accuracy_metric(pred, actual)
+
         scores.append(err)
-        mape_scores.append(m_err)
-    return scores, mape_scores
+
+    return scores
+
 
 if __name__ == "__main__":
     dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
@@ -204,8 +206,6 @@ if __name__ == "__main__":
     # coef, err = coefficients_sgd(df.values, 0.01, 1000)
     # print("Coefficients: {0}, err {1}".format(coef, err))
 
-    errs, mapes = evaluate_algorithm(df, linear_regression_sgd, 5, 0.01, 1000)
+    errs = evaluate_algorithm(df, linear_regression_sgd, 5, 0.01, 1000, rmse)
     print(errs)
     print("Mean Err: {0:.3f}".format(np.mean(errs)))
-    print(mapes)
-    print("MAPE Mean Err: {0:.3f}".format(np.mean(mapes)))
