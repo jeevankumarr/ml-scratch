@@ -127,9 +127,7 @@ def test_train_split(dataset, split):
     data = dataset.values
     for row in data:
         if random.random() <= split:
-
             train.append(list(row))
-
         else:
             test.append(list(row))
     return pd.DataFrame(train), pd.DataFrame(test)
