@@ -67,7 +67,8 @@ def logistic_accuracy(predicted, actual):
     for y, yhat in zip(actual, predicted):
         if y == yhat:
             correct += 1
-    return correct / float(len(actual)) * 100.0
+
+    return correct*1.0 / len(actual)
 
 
 if __name__ == "__main__":

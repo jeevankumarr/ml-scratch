@@ -51,7 +51,7 @@ def predict(row, coefficients):
     return yhat
 
 
-def coefficients_sgd(train, learning_rate, iter):
+def coefficients_sgd(train, learning_rate, iter, pred):
     """Stochastic Gradient Descent
 
     Args:
@@ -69,7 +69,7 @@ def coefficients_sgd(train, learning_rate, iter):
     for i in range(iter):
         sum_err = 0.0
         for row in train:
-            yhat = predict(row, coef)
+            yhat = pred(row, coef)
             err = yhat - row[-1]
             sum_err += err ** 2
             coef[0] = coef[0] - learning_rate * err
@@ -118,7 +118,7 @@ def standardize(dataset):
     return df
 
 
-def linear_regression_sgd(train, test, learn_rate, iter):
+def linear_regression_sgd(train, test, learn_rate, iter, pred=predict):
     """
 
     Args:
@@ -131,9 +131,9 @@ def linear_regression_sgd(train, test, learn_rate, iter):
         list: predictions for the test dataset
     """
     preds = []
-    coef, _ = coefficients_sgd(train, learn_rate, iter)
+    coef, _ = coefficients_sgd(train, learn_rate, iter, pred)
     for row in test:
-        yhat = predict(row, coef)
+        yhat = pred(row, coef)
         preds.append(yhat)
     return preds
 
@@ -162,7 +162,7 @@ def cross_validation_split(dataset, n_folds):
     return dataset_split
 
 
-def evaluate_algorithm(dataset, algorithm, n_folds, learn_rate, iter, accuracy_metric):
+def evaluate_algorithm(dataset, algorithm, n_folds, learn_rate, iter, accuracy_metric, pred=predict):
     folds = cross_validation_split(dataset, n_folds)
     scores = []
 
@@ -174,10 +174,10 @@ def evaluate_algorithm(dataset, algorithm, n_folds, learn_rate, iter, accuracy_m
             row_copy = list(row)
             test.append(row_copy)
             row_copy[-1] = None
-        pred = algorithm(train, test, learn_rate, iter)
+        preds = algorithm(train, test, learn_rate, iter, pred=pred)
         actual = [row[-1] for row in fold]
 
-        err = accuracy_metric(pred, actual)
+        err = accuracy_metric(preds, actual)
 
         scores.append(err)
 
@@ -187,7 +187,7 @@ def evaluate_algorithm(dataset, algorithm, n_folds, learn_rate, iter, accuracy_m
 if __name__ == "__main__":
     dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
     # coef = [0.4, 0.8]
-    coef, err = coefficients_sgd(dataset, 0.001, 50)
+    coef, err = coefficients_sgd(dataset, 0.001, 50, pred=predict)
     print("Coefficients: {0}, err {1}".format(coef, err))
 
     for row in dataset:
@@ -206,6 +206,6 @@ if __name__ == "__main__":
     # coef, err = coefficients_sgd(df.values, 0.01, 1000)
     # print("Coefficients: {0}, err {1}".format(coef, err))
 
-    errs = evaluate_algorithm(df, linear_regression_sgd, 5, 0.01, 1000, rmse)
+    errs = evaluate_algorithm(df, linear_regression_sgd, 5, 0.01, 100, rmse)
     print(errs)
     print("Mean Err: {0:.3f}".format(np.mean(errs)))
