@@ -4,7 +4,7 @@ import math
 import numpy as np
 import pandas as pd
 
-from src.algorithms import mean, variance, coefficients, covariance
+from src.linear import mean, variance, coefficients, covariance
 
 
 def test_mean():
