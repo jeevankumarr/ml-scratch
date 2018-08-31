@@ -246,7 +246,9 @@ def accuracy_metric(actual, predicted):
         float: % of values correct between actual and predicted
     """
     if len(actual) != len(predicted):
-        raise ValueError("Actual and predicted must have same values")
+        print(len(actual), len(predicted))
+        raise ValueError("Actual and predicted must have same length of values")
+
     correct = [a==p for a, p in zip(actual, predicted)]
     return sum(correct)*1.0 / len(actual)
 
@@ -325,6 +327,5 @@ if __name__ == "__main__":
     folds = 5
     max_depth = 5
     min_size = 10
-    scores = evaluate_algorithm(banknote.values, decision_tree, folds,
-                                max_depth, min_size)
+    scores = evaluate_algorithm(banknote.values, decision_tree, folds, max_depth, min_size)
     print("Scores:", np.round(scores, 3))
