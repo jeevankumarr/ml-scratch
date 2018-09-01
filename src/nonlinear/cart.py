@@ -140,7 +140,7 @@ def build_tree(train, max_depth, min_size):
     Returns:
         dict: reference to the root of the tree
     """
-    root = get_split(train)
+    root = get_split(train.values)
     split(root, max_depth, min_size, 1)
 
     return root
@@ -203,7 +203,7 @@ def decision_tree(train, test, max_depth, min_size):
     tree = build_tree(train, max_depth, min_size)
     predictions = []
 
-    for row in test:
+    for row in test.values:
         prediction = predict(tree, row)
         predictions.append(prediction)
 
@@ -213,7 +213,7 @@ def cross_validation_split(dataset, n_folds):
     """Split data into n_folds for cross validation
 
     Args:
-        dataset (numpy.ndarray): input dataset
+        dataset (pandas.DataFrame): input dataset
         n_folds (int): no. of folds the data needs to be split
 
     Returns:
@@ -221,7 +221,7 @@ def cross_validation_split(dataset, n_folds):
     """
 
     dataset_split = []
-    dataset_copy = list(dataset)
+    dataset_copy = list(dataset.values)
     fold_size = int(len(dataset)) / n_folds
 
     for _ in range(n_folds):
@@ -231,7 +231,9 @@ def cross_validation_split(dataset, n_folds):
                 break
             index = random.randrange(len(dataset_copy))
             fold.append(dataset_copy.pop(index))
-        dataset_split.append(fold)
+        t = pd.DataFrame(fold)
+        t.columns = dataset.columns
+        dataset_split.append(t)
     return dataset_split
 
 def accuracy_metric(actual, predicted):
@@ -266,18 +268,22 @@ def evaluate_algorithm(dataset, algorithm, n_folds, *args):
     """
     folds = cross_validation_split(dataset, n_folds)
     scores = []
-
+    train, test = None, None
     for i, fold in enumerate(folds):
-        train = [f for j, f in enumerate(folds) if j != i]
-        train = sum(train, [])
-        test = []
-        for row in fold:
-            row_copy = list(row)
-            test.append(row_copy)
-            row_copy[-1] = None
+        train = pd.DataFrame()
+        test = pd.DataFrame()
+        actual = None
+        for j, f in enumerate(folds):
+            if j != i:
+                train = train.append(fold, ignore_index=True)
+
+            else:
+                test = test.append(fold, ignore_index=True)
+                actual = list(test.iloc[:, -1])
+                test.iloc[:, -1] = None
 
         preds = algorithm(train, test, *args)
-        actual = [row[-1] for row in fold]
+        # actual = [row[-1] for row in fold]
 
         err = accuracy_metric(preds, actual)
 
@@ -318,7 +324,7 @@ if __name__ == "__main__":
     splitx = get_split(dataset)
     print('Split: [X%d < %.3f]' % ((splitx['index'] + 1), splitx['value']))
 
-    tree = build_tree(dataset, 4, 1)
+    tree = build_tree(pd.DataFrame(dataset), 4, 1)
     print_tree(tree)
     banknote = pd.read_csv("../data/banknote.txt", header=None)
     print(tabulate(banknote.head(), headers="keys", tablefmt="psql"))
@@ -327,5 +333,5 @@ if __name__ == "__main__":
     folds = 5
     max_depth = 5
     min_size = 10
-    scores = evaluate_algorithm(banknote.values, decision_tree, folds, max_depth, min_size)
+    scores = evaluate_algorithm(banknote, decision_tree, folds, max_depth, min_size)
     print("Scores:", np.round(scores, 3))
