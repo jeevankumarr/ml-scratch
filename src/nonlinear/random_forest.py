@@ -164,10 +164,11 @@ if __name__ == "__main__":
     min_size = 10
     sample_size = 1.0
 
-    n_features = int(np.sqrt(sonar.shape[1]))
+    feature_count = int(np.sqrt(sonar.shape[1]))
     scores = []
     for n_trees in [1, 5, 10]:
         scores = evaluate_algorithm(sonar, random_forest, 5, max_depth,
-                                    min_size, sample_size, n_trees, n_features)
+                                    min_size, sample_size, n_trees,
+                                    feature_count)
 
     print(np.mean(scores), scores)
