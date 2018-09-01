@@ -8,7 +8,7 @@ def gini_index(groups, classes):
     """Calculate the gini index for the given dataset and the classes
 
     Args:
-        groups (list): list of groups of data
+        groups (iterable): list of groups of data
         classes (list): unique outcome lables
 
     Returns:
