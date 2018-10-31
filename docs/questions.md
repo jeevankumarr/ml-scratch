@@ -1,21 +1,3 @@
-<style TYPE="text/css">
-code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
-</style>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
-    }
-});
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 ### Question for Practice
 __SQL:__
@@ -105,7 +87,7 @@ __Probability:__
 
 5. You have a 50-50 mixture of two normal distribution with the same sd. How far apart do the mean needs to be in order for this distribution to be bi-modal?
     
-    a distribution is bi modal when $$ | u_1 - u_2 | 2 \sigma $$
+    a distribution is bi modal when <a href="https://www.codecogs.com/eqnedit.php?latex=|&space;\mu_1&space;-&space;\mu_2&space;|&space;>&space;2\sigma" target="_blank"><img src="https://latex.codecogs.com/gif.latex?|&space;\mu_1&space;-&space;\mu_2&space;|&space;>&space;2\sigma" title="| \mu_1 - \mu_2 | > 2\sigma" /></a>
     
 
 6. Given draws from a normal distribution with known parameters, how can you simulate draws from a uniform distribution?
