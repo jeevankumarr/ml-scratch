@@ -24,38 +24,6 @@ __Stats:__
 6. How to test means? Normal and non-normal data.
 7. How to test counts? Normal and non-normal data.
 
-__Modelling:__
-1. What is bia variance trade-off?
-2. Derive bias variance
-3. Linear regression derivation
-4. Linear regression derivation based on matrix
-5. Write CART algorithm
-6. Write Bagged Tree algorithm
-7. Write Random Forest algorithm
-8. Write Gradient boosting algorithm
-9. Derive NN - backpropagation
-10. What is SVN?
-11. ARIMA formula structure
-12. How would you tell whether a new feature X is beneficial or not  
-13. Create a model to predict a response variable
-14. What could be issues if distribution of test data is significantly different from training data?
-15. How to make model more robust to outliers?
-16. MSE vs. MAD why choose one? Differences in model that uses one over the other. 
-17. How to evaluate a binary classifier?
-18. How to deal with imbalanced binary response variable?
-19. What models can be used to predict a binary response variable? What are are the differences between these?
-20. What is regularization and where might it be helpful? What is an example of regularization in a model?
-21. Why might it be better to include fewer features compared to many?
-22. Given training data on tweets and their tweets, how would you predict the no. of re-tweets of a given tweet after 7 days after only observing 2 days worth of data?
-23. How would you construct a feed to show relevant content for a site that involved user interactions with items?
-24. How would you deisgn the people you may know feature on Linkedin or FB?
-25. How would you predict who someone may want to send a Snapchat or Gmat to?
-26. How would you suggest to a farnchise where to open a new store?
-27. In a search engine, query auto complete solution
-28. Given a database of all previous alumni donations to your university, how would you predict which recent alumni are more likely to donate?
-29. You're Uber and you want to design a heatmap to recommend to drivers where to wait for passenger. How would you approach this?
-30. How would you build a model to predict a March Madness bracket?
-31. You want to run a regression to predict the probability of a flight delay, but there are flights with delays up to 12 hours that are really messing up your model. How will you address this?
 
 
 __Probability:__
@@ -110,8 +78,22 @@ __Probability:__
     ```
 
 12. Fizz Buzz
+    ```python
+    def fizz_buzz(n): 
+        for i in range(n+1):
+            if i%3 == 0 and i%5 == 0: print('FizzBuzz')
+            elif i%3 == 0: print('FizzBuzz')
+            elif i%5 == 0: print('Fizz')
+            else print(i)
+    ```
 
 13. On a dating site, users can select 5 out of 24 adjectives to describe themselves. A match is declared between two users if they match on at least 4 adjectives. If Alice and Bob randomly pick adjectives, what is the probability that they form a match?
+    ```text
+        No. of ways to pick 5 adjectives = 25C5 = No. of ways Alice picks adjectives.
+        No. of ways for Bob to pick matching 4 matching adjectives = 5C4 * 19C1
+        No. of ways for Bob to pick matching 5 matching adjectives = 5C5 * 19C0
+        p(match) = 5C4 * 19C1 + 5C5 * 19C0 / 24C5 = 0.002 
+    ```
 
 14. A lazy high school senior types up application and envelopes to n different colleges, but puts the applications randomly into the envelopes. What is the expected number of application that went to the right college?
 
