@@ -67,7 +67,7 @@ def get_split(dataset):
     # print("\n", np.round(dataset, 3))
     # print("Got split X_{0} < {1}, {2}\n\n".format(b_idx, b_val, gini))
 
-    return  {"index": b_idx, "value": b_val, "groups": b_groups}
+    return {"index": b_idx, "value": b_val, "groups": b_groups}
 
 
 # create a terminal node value
