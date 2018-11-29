@@ -8,7 +8,7 @@ __SQL:__
 5. Calculate request acceptance rate BY date, month
 6. Calculate request abandon rate BY date, month
 
-__Unsorted:__
+__Unsorted:__  
 7. How do you proof that males are on average taller than females by knowing just gender or height?
 8. What is a monkey patch
 9. How to AB test non-normal variables?
@@ -54,9 +54,9 @@ __Probability:__
     ``` 
 
 5. You have a 50-50 mixture of two normal distribution with the same sd. How far apart do the mean needs to be in order for this distribution to be bi-modal?
-    
+    ```text
     a distribution is bi modal when <a href="https://www.codecogs.com/eqnedit.php?latex=|&space;\mu_1&space;-&space;\mu_2&space;|&space;>&space;2\sigma" target="_blank"><img src="https://latex.codecogs.com/gif.latex?|&space;\mu_1&space;-&space;\mu_2&space;|&space;>&space;2\sigma" title="| \mu_1 - \mu_2 | > 2\sigma" /></a>
-    
+    ```    
 
 6. Given draws from a normal distribution with known parameters, how can you simulate draws from a uniform distribution?
 

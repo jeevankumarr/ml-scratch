@@ -33,7 +33,7 @@ class KNearestNeighbors(NearestNeighborClassifier):
         super(KNearestNeighbors, self).__init__(*args, **kwargs)
         self.k = k
 
-    def predict(self, X_test):
+    def predict_loop(self, X_test):
         # print('KNN Pred')
         preds = np.zeros(len(X_test))
 
@@ -45,6 +45,19 @@ class KNearestNeighbors(NearestNeighborClassifier):
             # take mean of the k closest neighbors
             preds[i] = np.mean(np.take(self.y_train, min_dist_idxs))
 
+        return preds
+    def predict(self, X_test):
+        preds = np.zeros(len(X_test))
+        # computing distance using matrices
+        #  (a-b)^2 = a^2 + b^2 - 2 * a * b
+        dists = np.sum(self.X_train**2, axis=1) + \
+                np.sum(X_test**2, axis=1)[:, np.newaxis] - \
+                2.0 * np.dot(X_test, self.X_train.T)
+        for i, row in enumerate(X_test):
+            min_dists = self.y_train[np.argsort(dists[i,:])[:self.k]]
+            (values, counts) = np.unique(min_dists, return_counts=True)
+            idx = np.argmax(counts)
+            preds[i] = values[idx]
         return preds
 
 if __name__ == '__main__':
