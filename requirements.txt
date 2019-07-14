@@ -5,7 +5,7 @@ attrs==19.1.0
 Automat==0.7.0
 backcall==0.1.0
 bleach==2.1.4
-certifi==2018.8.24
+certifi==2019.6.16
 cffi==1.11.5
 chardet==3.0.4
 constantly==15.1.0
@@ -65,7 +65,7 @@ testpath==0.3.1
 tornado==5.1.1
 traitlets==4.3.2
 Twisted==17.5.0
-urllib3==1.24.1
+urllib3==1.24.2
 wcwidth==0.1.7
 webencodings==0.5.1
 widgetsnbextension==3.4.1
