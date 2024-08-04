@@ -15,7 +15,7 @@ defusedxml==0.5.0
 entrypoints==0.2.3
 html5lib==1.0.1
 hyperlink==18.0.0
-idna==2.7
+idna==3.7
 incremental==17.5.0
 ipykernel==4.10.0
 ipython==6.5.0
